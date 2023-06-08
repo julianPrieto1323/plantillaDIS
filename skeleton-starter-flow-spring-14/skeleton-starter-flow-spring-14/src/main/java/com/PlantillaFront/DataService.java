@@ -121,7 +121,7 @@ public class DataService implements Serializable {
         return listausuarios;
     }
 
-    public ArrayList<Compras> mostrarCompras(Persona persona) {
+    public ArrayList<Compras> getCompras(Persona persona) {
         try {
             Gson gson = new Gson();
             HttpClient httpClient = HttpClient.newHttpClient();
