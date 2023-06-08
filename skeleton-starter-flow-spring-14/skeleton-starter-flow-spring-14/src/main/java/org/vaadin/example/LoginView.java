@@ -1,4 +1,4 @@
-package com.PlantillaFront;
+package org.vaadin.example;
 
 
 import com.vaadin.flow.component.Text;
@@ -51,18 +51,17 @@ public class LoginView extends VerticalLayout{
             //Debemos realizar un control y ver si has seleccionado algún radiobutton, si no salta un mensaje de que debo seleccionar
             //Un tipo de usuario para continuar
             try {//Validamos el Log in si se rellenan los campos y se selecciona un tipo de usuario
-                boolean isValid = isvalid(nombre, password);
-                if (isValid == false) {
+                Persona persona = isvalid(nombre, password);
+                if (persona.getNombre() == null) {
                     Notification.show("El email o la contraseña son incorrectos.");
                     loginForm.setError(true);
                     i18nForm.setUsername("");
                     i18nForm.setPassword("");
                 }else{
-                    Persona persona = new Persona();
                     persona.setNombre(nombre);
                     persona.setPassword(password);
-                    Notification.show("Inicio de sesión correcto.");
                     removeAll();
+                    Notification.show("Inicio de sesión correcto.");
                     GridsView grids = new GridsView();
                     grids.PaginaGridsView(persona);
                     this.add(grids);
@@ -81,7 +80,7 @@ public class LoginView extends VerticalLayout{
         });
     }
 
-    public boolean isvalid(String nombre, String password) throws IOException, URISyntaxException {
+    public Persona isvalid(String nombre, String password) throws IOException, URISyntaxException {
         boolean result = false;
         DataService data = new DataService();
         Persona persona = new Persona();
@@ -103,6 +102,6 @@ public class LoginView extends VerticalLayout{
                 throw new RuntimeException(e);
             }
         }
-        return result;
+        return persona;
     }
 }

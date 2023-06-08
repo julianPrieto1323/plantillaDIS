@@ -1,31 +1,20 @@
-package com.PlantillaFront;
+package org.vaadin.example;
 
 import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.component.textfield.PasswordField;
 import com.vaadin.flow.component.textfield.TextField;
-import org.springframework.util.StringValueResolver;
-import org.vaadin.example.Compras;
-import org.vaadin.example.Persona;
 
 import java.net.URISyntaxException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.util.Date;
-import java.util.Locale;
 
-public class Anhadir_Compras extends VerticalLayout {
+public class EditarCompras extends VerticalLayout {
     DataService data = new DataService();
-    public void Anhadir_ComprasView(Persona persona){
-        Compras compras = new Compras();
+    public void editarComprasView(Persona persona, Compras compras){
 
         H1 h1 = new H1("Añada las características de su compra. ");
         TextField Nombre = new TextField("Nombre Compra");
-        DatePicker datePicker = new DatePicker("Fecha de Compra");
+        TextField datePicker = new TextField("Fecha de Compra");
         add(datePicker);
         Button confirmar = new Button("Confirmar");
         Button atras = new Button("Atrás");
@@ -37,17 +26,10 @@ public class Anhadir_Compras extends VerticalLayout {
 
         confirmar.addClickListener(ButtonClickevent -> {
             compras.setNombre(Nombre.getValue());
-
-            LocalDate fechaSeleccionada = datePicker.getValue();
-            String fechaCompra = String.valueOf(fechaSeleccionada);  // Convierte LocalDate a java.util.Date
-            compras.setFechaCompra(fechaCompra);
-            if(persona.getCompras() != null){
-                compras.setId(String.valueOf(persona.getCompras().size() + 1));
-            }else{
-                compras.setId(String.valueOf(0));
-            }
-
-            data.anhadirCompras(compras, persona);
+            String fecha = datePicker.getValue();
+            fecha = data.comprobarFecha(fecha);
+            compras.setFechaCompra(fecha);
+            data.editarCompras(compras.getId(), compras.getNombre(), compras.getFechaCompra(), persona.getId());
             removeAll();
             GridsView gridsView = new GridsView();
             try {
@@ -68,8 +50,5 @@ public class Anhadir_Compras extends VerticalLayout {
                 throw new RuntimeException(e);
             }
         });
-
-
     }
-
 }

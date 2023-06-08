@@ -66,25 +66,6 @@ public class Persona {
     }
     public String montarJSON() {
         Gson gson = new Gson();
-
-        JsonObject jsonObject = new JsonObject();
-        jsonObject.addProperty("id", id);
-        jsonObject.addProperty("nombre", nombre);
-        jsonObject.addProperty("password", password);
-
-        JsonArray comprasArray = new JsonArray();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("MMM dd, yyyy, hh:mm:ss a");
-        if(compras != null){
-            for (Compras compra : compras) {
-                JsonObject compraObj = new JsonObject();
-                compraObj.addProperty("id", compra.getId());
-                compraObj.addProperty("nombre", compra.getNombre());
-                String fechaCompraStr = dateFormat.format(compra.getFechaCompra());
-                compraObj.addProperty("fechaCompra", fechaCompraStr);
-                comprasArray.add(compraObj);
-            }
-            jsonObject.add("compras", comprasArray);
-        }
-        return gson.toJson(jsonObject);
+        return gson.toJson(this);
     }
 }

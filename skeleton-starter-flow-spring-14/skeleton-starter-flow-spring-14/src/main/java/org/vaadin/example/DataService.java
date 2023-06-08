@@ -1,4 +1,4 @@
-package com.PlantillaFront;
+package org.vaadin.example;
 
 import java.io.*;
 import java.net.*;
@@ -157,7 +157,7 @@ public class DataService implements Serializable {
     public void eliminarUsuario(Persona persona) {
         try {
             Gson gson = new Gson();
-            URL url = new URL(urlPrefix + "EliminarUsers");
+            URL url = new URL(urlPrefix + "EliminarUsers?id=" + persona.getId());
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("DELETE");
             connection.setRequestProperty("Content-Type", "application/json");
@@ -253,6 +253,73 @@ public class DataService implements Serializable {
             e.printStackTrace();
         }
     }
+    public static ArrayList<Compras> eliminarCompras(String idCompras, int idPersona) throws URISyntaxException, IOException {
+        ArrayList<Compras> listaTweets = new ArrayList<Compras>();
 
+        try {
+            HttpClient httpClient = HttpClient.newHttpClient();
+            HttpRequest httpRequest = HttpRequest.newBuilder()
+                    .uri(new URI(urlPrefix + "EliminarCompras?idCompras=" + idCompras + "&idPersona=" + idPersona))
+                    .header("Content-Type", "application/json")
+                    .DELETE()
+                    .build();
+
+            HttpResponse<String> httpResponse = httpClient.send(httpRequest, HttpResponse.BodyHandlers.ofString());
+
+            // Procesa la respuesta del backend
+            int statusCode = httpResponse.statusCode();
+            String responseBody = httpResponse.body();
+
+            // Verifica el código de respuesta
+            if (statusCode == 200) {
+                // Utiliza Gson para convertir la respuesta JSON en una lista de tweets
+                com.google.gson.Gson gson = new com.google.gson.Gson();
+                listaTweets = gson.fromJson(responseBody, new TypeToken<ArrayList<Compras>>() {}.getType());
+
+                // Aquí puedes realizar las operaciones necesarias con la lista de tweets
+                System.out.println("El tweet se eliminó correctamente.");
+                System.out.println("Lista de tweets actualizada: " + listaTweets);
+            } else {
+                System.out.println("Error al eliminar el tweet. Código de respuesta: " + statusCode);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return listaTweets;
+    }
+    public void editarCompras(@RequestParam String idCompra, @RequestParam String nombreCompra, @RequestParam String fechaCompra, @RequestParam int idPersona){
+        try {
+            Gson gson = new Gson();
+            URL url = new URL(urlPrefix + "EditarCompras?idCompra=" + idCompra + "&nombreCompra=" + nombreCompra + "&fechaCompra=" + fechaCompra + "&idPersona=" + idPersona);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("PUT");
+            connection.setRequestProperty("Content-Type", "application/json");
+            connection.setDoOutput(true);
+            int statusCode = connection.getResponseCode();
+
+            // Aquí puedes realizar las operaciones necesarias con el código de respuesta
+
+            connection.disconnect();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public String comprobarFecha(String fecha){
+        StringBuilder resultado = new StringBuilder();
+        char caracterOriginal = '/';
+        char caracterReemplazo = '-';
+        for (int i = 0; i < fecha.length(); i++) {
+            char caracter = fecha.charAt(i);
+
+            if (caracter == caracterOriginal) {
+                resultado.append(caracterReemplazo);
+            } else {
+                resultado.append(caracter);
+            }
+        }
+
+        return resultado.toString();
+    }
 
 }

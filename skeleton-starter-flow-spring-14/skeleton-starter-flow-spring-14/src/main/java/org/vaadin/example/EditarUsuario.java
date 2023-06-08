@@ -1,4 +1,4 @@
-package com.PlantillaFront;
+package org.vaadin.example;
 
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
