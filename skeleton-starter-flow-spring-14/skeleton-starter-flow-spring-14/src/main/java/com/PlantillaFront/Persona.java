@@ -3,6 +3,7 @@ package org.vaadin.example;
 import com.nimbusds.jose.shaded.gson.Gson;
 import com.nimbusds.jose.shaded.gson.JsonArray;
 import com.nimbusds.jose.shaded.gson.JsonObject;
+import org.vaadin.example.Compras;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

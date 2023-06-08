@@ -1,5 +1,7 @@
 package com.plantilla.plantillaJPV;
 
+import com.plantillaDIS.JPV.Compras;
+
 import java.util.ArrayList;
 
 public class Persona {
