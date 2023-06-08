@@ -25,7 +25,7 @@ public class Controller {
         Persona personaNueva = usuarios.get(1); //Usuario Nuevo
         return data.editarUsers(personaAntigua, personaNueva);
     }
-    @DeleteMapping ("/EliminarUsers{id}")//Eliminar Usuarios
+    @DeleteMapping ("/EliminarUsers")//Eliminar Usuarios
     public ArrayList<Persona> eliminarUsuarios(@RequestParam int id){
         Persona persona = new Persona();
         persona.setId(id);
@@ -39,15 +39,6 @@ public class Controller {
     public Persona anhadirCompras(@RequestBody AnhadirComprasRequest reuqest){
         return data.anhadirCompas(reuqest.getCompra(), reuqest.getPersona());
     }
-/*
-    @PutMapping("/EditarCompras")
-    public ArrayList<Compras> editarCompras(@RequestParam Compras nuevaCompra,@RequestParam int idPersona){
-        Persona persona = new Persona();
-        persona.setId(idPersona);
-
-        return data.editarCompas(persona, nuevaCompra);
-    }
-*/
     @PutMapping("/EditarCompras")
     public ArrayList<Compras> editarCompras(@RequestParam String idCompra, @RequestParam String nombreCompra, @RequestParam String fechaCompra, @RequestParam int idPersona){
         Persona persona = new Persona();

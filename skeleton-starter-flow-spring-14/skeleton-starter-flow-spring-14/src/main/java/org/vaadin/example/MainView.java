@@ -1,4 +1,4 @@
-package com.PlantillaFront;
+package org.vaadin.example;
 
 import com.vaadin.flow.component.Text;
 import com.vaadin.flow.component.dependency.CssImport;
@@ -46,11 +46,7 @@ public class MainView extends VerticalLayout {
      * @param service The message service. Automatically injected Spring managed bean.
      */
     public MainView(@Autowired DataService service) throws URISyntaxException {
-        /*
-        LoginView loginView = new LoginView();
-        loginView.PaginaLoginWiew();
-        this.add(loginView);
-        */
+       
        LoginView loginView = new LoginView();
        loginView.PaginaLoginWiew();
        this.add(loginView);
