@@ -3,7 +3,7 @@ package com.plantillaDIS.JPV;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import com.plantilla.plantillaJPV.Persona;
+
 public class DataHanding {
     String rutaUsers = "users.json";
     public Persona comprobarInicio(Persona persona){
@@ -133,6 +133,49 @@ public class DataHanding {
             persona.setCompras(listaCompras);
         }
         editarUsers(persona, persona);
+        return persona;
+    }
+    public ArrayList<Compras> editarCompas(Persona persona, Compras nuevaCompra){
+        ArrayList<Compras> listaNuevaCompras = new ArrayList<Compras>();
+        persona = buscarPersona(persona);
+        ArrayList<Compras> compras = persona.getCompras();
+        for(int i = 0; i < compras.size(); i++){
+            if(compras.get(i).getId().equals(nuevaCompra.getId())){
+                compras.get(i).setFechaCompra(nuevaCompra.getFechaCompra());
+                compras.get(i).setNombre(nuevaCompra.getNombre());
+                break;
+            }
+        }
+        persona.setCompras(compras);
+        editarUsers(persona, persona);
+        return compras;
+    }
+    public ArrayList<Compras> eliminarCompras(Compras compras, Persona persona){
+        int encontrado = 0, cont = 0;
+        persona = buscarPersona(persona);
+        ArrayList<Compras> listaCompras = persona.getCompras();
+        for(int i = 0; i < listaCompras.size(); i++){
+            if(listaCompras.get(i).getId().equals(compras.getId())){
+                listaCompras.remove(i);
+                break;
+            }
+        }
+        persona.setCompras(listaCompras);
+        editarUsers(persona, persona);
+        return listaCompras;
+    }
+    public Persona buscarPersona(Persona persona){
+        JSON json = new JSON();
+        ArrayList<Persona> listaPersonas = json.LeerFicheroJson(rutaUsers);
+        for(int i = 0; i < listaPersonas.size(); i++){
+            if(listaPersonas.get(i).getId() == persona.getId()){
+                persona.setId(listaPersonas.get(i).getId());
+                persona.setNombre(listaPersonas.get(i).getNombre());
+                persona.setCompras(listaPersonas.get(i).getCompras());
+                persona.setPassword(listaPersonas.get(i).getPassword());
+                break;
+            }
+        }
         return persona;
     }
 }

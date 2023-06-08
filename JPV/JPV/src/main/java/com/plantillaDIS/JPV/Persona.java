@@ -1,6 +1,4 @@
-package com.plantilla.plantillaJPV;
-
-import com.plantillaDIS.JPV.Compras;
+package com.plantillaDIS.JPV;
 
 import java.util.ArrayList;
 

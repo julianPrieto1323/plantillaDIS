@@ -11,7 +11,7 @@ import java.io.Writer;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import com.plantilla.plantillaJPV.Persona;
+
 public class JSON {
     public static ArrayList<Persona> LeerFicheroJson(String ruta){
         //En esta clase se lee el fichero JSON de menores de 60
