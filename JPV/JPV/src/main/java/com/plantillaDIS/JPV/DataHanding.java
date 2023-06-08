@@ -119,8 +119,6 @@ public class DataHanding {
         return persona.getCompras();
     }
     public Persona anhadirCompas(Compras compra, Persona persona){
-
-
         if(comprobarInicio(persona) != null){
             ArrayList<Compras> listaCompras = persona.getCompras();
             // Verificar si la lista de compras es nula
