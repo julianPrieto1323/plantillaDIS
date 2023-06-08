@@ -63,7 +63,9 @@ public class LoginView extends VerticalLayout{
                     persona.setPassword(password);
                     Notification.show("Inicio de sesión correcto.");
                     removeAll();
-                    //GRIDS
+                    GridsView grids = new GridsView();
+                    grids.PaginaGridsView(persona);
+                    this.add(grids);
                 }
             } catch (IOException e) {
                 throw new RuntimeException(e);
@@ -73,7 +75,9 @@ public class LoginView extends VerticalLayout{
         });
         loginForm.addForgotPasswordListener(event-> {
             removeAll();
-            //REGSITRO
+            RegisterView registerView = new RegisterView();
+            registerView.paginaRegister();
+            this.add(registerView);
         });
     }
 
