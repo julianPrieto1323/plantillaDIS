@@ -51,7 +51,7 @@ public class GridsView extends VerticalLayout {
             removeAll();
             EditarUsuario editarUsuario1 = new EditarUsuario();
             editarUsuario1.paginaEditar(persona);
-            persona.setCompras(data.mostrarCompras(persona));
+            persona.setCompras(data.getCompras(persona));
             this.add(editarUsuario1);
         });
         this.add(h1, grid, eliminar, anhadirCompras, editarUsuario);
